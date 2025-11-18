@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #2563eb; /* Blue Color */
+            --dark-bg: #0f172a;
+            --light-text: #f8fafc;
+            --gray-text: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-glow: 0 0 20px rgba(37, 99, 235, 0.6); /* For glow effect */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: rgba(15, 23, 42, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        .hero span { color: var(--primary-color); }
+        .hero p { font-size: 1.2rem; color: var(--gray-text); margin-bottom: 30px; max-width: 600px; }
+        
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 15px; 
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover { 
+            transform: scale(1.05); 
+            box-shadow: var(--accent-glow); 
+        }
+
+        .btn-secondary {
+            background-color: transparent; 
+            border: 2px solid var(--primary-color); 
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: var(--accent-glow); 
+        }
+
+        /* Sections Generic */
+        section { padding: 80px 10%; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .about-img {
+            width: 250px;
+            height: 250px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+        }
+        .about-text { max-width: 600px; }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .skill-tag {
+            background-color: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--accent-glow); 
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+        .project-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: var(--accent-glow);
+        }
+        .project-card h3 { margin-bottom: 10px; }
+        .project-card p { color: var(--gray-text); margin-bottom: 15px; font-size: 0.9rem; }
+        .project-link { color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+
+        /* Contact */
+        .contact { text-align: center; }
+        .social-links { margin-top: 20px; font-size: 1.5rem; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #020617;
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+        
+        /* --- ANIMATIONS --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing Effect for Hero Subtitle */
+        .typing-effect {
+            white-space: nowrap; 
+            overflow: hidden; 
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            max-width: 100%; 
+            margin: 0 auto;
+            border-right: .15em solid var(--primary-color); 
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
+            section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Portfolio.</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero fade-in">
+        <h1>Hi, I'm <span>Ankit kag</span></h1>
+        <p class="typing-effect">A Full-Stack Web Developer specializing in HTML, CSS, JavaScript, and the MERN stack. I build clean, attractive, and user-focused websites that balance modern design with solid functionality. As a fresher developer, I’m passionate about turning ideas into smooth, responsive digital experiences that stand out on the web.</p>
+        
+        <div class="btn-container">
+            <a href="#contact" class="btn">Hire Me</a>
+            
+            <a href="myresume.pdf" download class="btn-secondary">Download CV</a>
+        </div>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <img src="myphoto.jpg" alt="Profile Photo" class="about-img">
+            <div class="about-text">
+                <h3>My Introduction</h3>
+                <p>I have completed my B.Sc. in Computer Science from a Government College, where I developed a strong base in programming, computer fundamentals, and problem-solving. Currently, I’m pursuing my MCA from RGPV, focusing on deepening my skills in software development, data structures, and full-stack web technologies. I’m committed to strengthening my technical foundation and applying my knowledge to real-world projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="fade-in">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-container">
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React JS</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">UI/UX Design</span>
+        </div>
+    </section>
+
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>E-commerce Website</h3>
+                <p>Ek fully functional shopping website jisme cart system aur payment integration hai.</p>
+                <a href="https://www.google.com" target="_blank" class="project-link">View Project →</a>
+            </div>
+            <div class="project-card">
+                <h3>Weather App</h3>
+                <p>Live weather update dikhane wali application jo API ka use karti hai.</p>
+                <a href="#" class="project-link">View Project →</a>
+            </div>
+            <div class="project-card">
+                <h3>To-Do List</h3>
+                <p>Task management app jisme local storage ka use kiya gaya hai.</p>
+                <a href="#" class="project-link">View Project →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact fade-in">
+        <h2 class="section-title">Contact Me</h2>
+        <p>“If you’re looking for a dedicated full-stack developer, I’d be glad to work with your team.”</p>
+        <br>
+        <a href="mailto:yourmail@example.com" class="btn">Email Me</a>
+        
+        <div class="social-links">
+            <p style="margin-top: 20px; font-size: 0.9rem; color: gray;">LinkedIn | GitHub | Twitter</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 ankit kag. All Rights Reserved.</p>
+    </footer>
+
+    <script src="code.js"></script>
+</body>
+</html>
