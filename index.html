@@ -214,6 +214,47 @@
             .nav-links { display: none; } 
             section { padding: 60px 5%; }
         }
+        /* --- CONTACT FORM STYLES (New Code) --- */
+        /* --- CONTACT FORM STYLES (New Code) --- */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 30px auto 0; /* Upar se thoda space dega */
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border: 1px solid #334155; /* Dark border */
+    border-radius: 5px;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color); /* Focus hone par primary color border */
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical; /* User ko resize ki permission dega */
+}
+
+/* Button style already defined as .btn */
+.contact-form .btn {
+    width: 100%; /* Button poore form ki width le lega */
+    margin-top: 10px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -285,16 +326,24 @@
         </div>
     </section>
 
-    <section id="contact" class="contact fade-in">
-        <h2 class="section-title">Contact Me</h2>
-        <p>“If you’re looking for a dedicated full-stack developer, I’d be glad to work with your team.”</p>
-        <br>
-        <a href="ankitkag03@gmail.com" class="btn">Email Me</a>
+   <section id="contact" class="contact fade-in">
+    <h2 class="section-title">Contact Me</h2>
+    <p>“If you’re looking for a dedicated full-stack developer, I’d be glad to work with your team. Fill out the form below to get in touch!”</p>
+    
+    <form action="https://formspree.io/f/f_xxxxxxxx" method="POST" class="contact-form">
         
-        <div class="social-links">
-            <p style="margin-top: 20px; font-size: 0.9rem; color: gray;">LinkedIn | GitHub | Twitter</p>
-        </div>
-    </section>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        
+        <button type="submit" class="btn">Send Message</button> 
+        
+    </form>
+    
+    <div class="social-links fade-in">
+        <p style="margin-top: 40px; font-size: 0.9rem; color: var(--gray-text);">LinkedIn | GitHub | Twitter</p>
+    </div>
+</section>
 
     <footer>
         <p>&copy; 2024 ankit kag. All Rights Reserved.</p>
@@ -304,5 +353,6 @@
 </body>
 
 </html>
+
 
 
