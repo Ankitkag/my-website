@@ -244,4 +244,44 @@
 @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: var(--primary-color); }
+
 }
+// ... (existing Fade-in and Typing Effect code ke baad) ...
+
+// 4. Dark/Light Mode Toggle Logic
+const toggleButton = document.getElementById('theme-toggle');
+const currentTheme = localStorage.getItem('theme');
+const iconSpan = toggleButton.querySelector('.icon');
+
+// A. Initial Load: Check if user has a preference
+if (currentTheme) {
+    document.body.classList.add(currentTheme);
+    
+    // Icon ko update karein
+    if (currentTheme === 'light-theme') {
+        iconSpan.textContent = '☀️'; // Sun icon for light mode
+        toggleButton.style.color = '#f59e0b'; // Yellow color for Sun icon
+    } else {
+        iconSpan.textContent = '🌙'; // Moon icon for dark mode
+    }
+}
+
+
+// B. Handle Toggle Click
+toggleButton.addEventListener('click', () => {
+    // 1. Theme class ko body par toggle karein
+    document.body.classList.toggle('light-theme');
+
+    // 2. Local Storage aur Icon ko update karein
+    let theme = 'dark-theme';
+    if (document.body.classList.contains('light-theme')) {
+        theme = 'light-theme';
+        iconSpan.textContent = '☀️'; // Change to Sun
+        toggleButton.style.color = '#f59e0b';
+    } else {
+        iconSpan.textContent = '🌙'; // Change to Moon
+        toggleButton.style.color = 'var(--icon-color)';
+    }
+
+    localStorage.setItem('theme', theme);
+});
